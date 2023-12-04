@@ -1,4 +1,11 @@
-use axum::{extract::Path, http::StatusCode, response::IntoResponse, routing::get, Router};
+use axum::{
+    extract::Path,
+    http::StatusCode,
+    response::IntoResponse,
+    routing::{get, post},
+    Router,
+};
+use cch23_fargito::reindeer_cheer;
 
 async fn hello_world() -> &'static str {
     "Hello, world!"
@@ -28,7 +35,8 @@ async fn main() -> shuttle_axum::ShuttleAxum {
     let router = Router::new()
         .route("/", get(hello_world))
         .route("/-1/error", get(fake_error))
-        .route("/1/*key", get(recalibrate));
+        .route("/1/*key", get(recalibrate))
+        .route("/4/strength", post(reindeer_cheer));
 
     Ok(router.into())
 }
