@@ -5,7 +5,7 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use cch23_fargito::reindeer_cheer;
+use cch23_fargito::{reindeer_cheer, reindeer_contest};
 
 async fn hello_world() -> &'static str {
     "Hello, world!"
@@ -36,7 +36,8 @@ async fn main() -> shuttle_axum::ShuttleAxum {
         .route("/", get(hello_world))
         .route("/-1/error", get(fake_error))
         .route("/1/*key", get(recalibrate))
-        .route("/4/strength", post(reindeer_cheer));
+        .route("/4/strength", post(reindeer_cheer))
+        .route("/4/contest", post(reindeer_contest));
 
     Ok(router.into())
 }
